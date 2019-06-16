@@ -19,4 +19,9 @@ export class LoginSignupService {
     let formData = this.toFormData(student.value);
     return this.http.post(this.url+"/register.php",formData);
   }
+
+  login(student:FormGroup) {
+    let formdata  = this.toFormData(student.value);
+    return  this.http.post(this.url+"/login.php",formdata);
+  }
 }

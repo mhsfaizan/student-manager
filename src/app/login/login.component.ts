@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LoginSignupService } from '../shared/login-signup.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   signIn:FormGroup;
   isActive = false;
 
-  constructor() { }
+  constructor(private loginService:LoginSignupService) { }
 
   ngOnInit() {
     this.signIn = new FormGroup(
@@ -25,6 +26,17 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isActive = true;
+    this.loginService.login(this.signIn)
+      .subscribe(
+        (data:any) => {
+          this.isActive = false;
+          console.log(data);
+        },
+        (error) => {
+          this.isActive = false;
+          console.log(error);
+        }
+      )
   }
 
 }
