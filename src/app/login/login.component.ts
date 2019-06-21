@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginSignupService } from '../shared/login-signup.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   signIn:FormGroup;
   isActive = false;
 
-  constructor(private loginService:LoginSignupService) { }
+  constructor(private loginService:LoginSignupService,private _router:Router) { }
 
   ngOnInit() {
     this.signIn = new FormGroup(
@@ -29,10 +30,19 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.signIn)
       .subscribe(
         (data:any) => {
-          this.isActive = false;
           console.log(data);
+          this.isActive = false;
+          if(data.status){
+            this.loginService.showSnackbar(data.message);
+            sessionStorage.setItem("user",JSON.stringify({username: data.data.username,token:data.data.token}));
+            setTimeout(()=>this._router.navigate(["/dashboard"]),2500);
+          }else{
+            this.loginService.showSnackbar(data.message);
+            setTimeout(()=>this._router.navigate(["/dashboard"]),2500)
+          }
         },
         (error) => {
+          this.loginService.showSnackbar("Server error please contact to web admin.");
           this.isActive = false;
           console.log(error);
         }

@@ -9,6 +9,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTooltipModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
   exports:[
     MatProgressBarModule,
@@ -45,7 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }
